@@ -1,81 +1,82 @@
-var Genre = require('../models/genre');
+var User = require('../models/user');
 var express = require('express');
 var router = express.Router();
 
 /**
  * Get all and add 1, chained because use the same route
  */
-router.route('/genres')
+router.route('/users')
     .get(function (req, res) {
-        Genre.find(function (err, genres) {
+        User.find(function (err, users) {
             if (err) {
                 return res.send(err);
             }
 
-            res.json(genres);
+            res.json(users);
         });
     })
     .post(function (req, res) {
-        var genre = new Genre(req.body);
+        var user = new User(req.body);
 
-        genre.save(function (err) {
+        user.save(function (err) {
             if (err) {
                 return res.send(err);
             }
 
-            res.send({message: 'Genre Added'});
+            res.send({message: 'User Added'});
         });
     });
 
 /**
  * update by id
  */
-router.route('/genres/:id').put(function(req,res){
-    Genre.findOne({ _id: req.params.id }, function(err, genre) {
+router.route('/users/:id').put(function(req,res){
+    User.findOne({ _id: req.params.id }, function(err, user) {
         if (err) {
             return res.send(err);
         }
 
         for (prop in req.body) {
-            genre[prop] = req.body[prop];
+            user[prop] = req.body[prop];
         }
 
         // save the movie
-        genre.save(function(err) {
+        user.save(function(err) {
             if (err) {
                 return res.send(err);
             }
 
-            res.json({ message: 'Genre updated!' });
+            res.json({ message: 'User updated!' });
         });
     });
 });
 
 /**
  * Get by id
+ * TODO: Check if can be another field, not id
  */
-router.route('/genres/:id').get(function(req, res) {
-    Genre.findOne({ _id: req.params.id}, function(err, genre) {
+router.route('/users/:id').get(function(req, res) {
+    User.findOne({ _id: req.params.id}, function(err, user) {
         if (err) {
             return res.send(err);
         }
 
-        res.json(genre);
+        res.json(user);
     });
 });
 
 /**
  * Delete one
  */
-router.route('/genres/:id').delete(function(req, res) {
-    Genre.remove({
+router.route('/users/:id').delete(function(req, res) {
+    User.remove({
         _id: req.params.id
-    }, function(err, genre) {
+    }, function(err, user) {
         if (err) {
             return res.send(err);
         }
 
-        res.json({ message: 'Genere deleted' });
+        res.json({ message: 'user deleted' });
     });
 });
 
