@@ -55,8 +55,14 @@ router.route('/users/:id').put(function(req,res){
  * Get by id
  * TODO: Check if can be another field, not id
  */
-router.route('/users/:id').get(function(req, res) {
-    User.findOne({ _id: req.params.id}, function(err, user) {
+router.route('/users/:username&:pass').get(function(req, res) {
+    console.log(req.params);
+    User.findOne(
+        {
+            username: req.params.username,
+            password: req.params.pass
+        },
+        function(err, user) {
         if (err) {
             return res.send(err);
         }
