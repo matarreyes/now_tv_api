@@ -56,7 +56,7 @@ router.route('/users/:id').put(function(req,res){
  * TODO: Check if can be another field, not id
  */
 router.route('/users/:username&:pass').get(function(req, res) {
-    console.log(req.params);
+    console.log(req.query); //The query attr is used to recover the ?data=value&data2=value2
     User.findOne(
         {
             username: req.params.username,

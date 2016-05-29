@@ -9,6 +9,7 @@ var movies = require('./routes/movies'); //routes are defined here
 var genres = require('./routes/genres'); //routes are defined here
 var users_app = require('./routes/users_app'); //routes are defined here
 var channels = require('./routes/channels'); //routes are defined here
+var tvSeries = require('./routes/tvSeries'); //routes are defined here
 var routes = require('./routes/index');
 var users = require('./routes/users');
 
@@ -41,6 +42,7 @@ app.use('/api', movies); //This is our route middleware
 app.use('/api', genres); //This is our route middleware
 app.use('/api', users_app); //This is our route middleware
 app.use('/api', channels); //This is our route middleware
+app.use('/api', tvSeries); //This is our route middleware
 
 
 // catch 404 and forward to error handler
