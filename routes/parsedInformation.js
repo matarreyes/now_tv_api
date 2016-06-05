@@ -4,7 +4,7 @@ var router = express.Router();
 
 //Distribution function
 var doInsert = function (route, res) {
-    unirest.post('http://localhost:3000/api/' + route)
+    unirest.post('http://api-now-tv.herokuapp.com/api/' + route)
         .send(res)
         .end(function (response) {
             console.log(response.body);
