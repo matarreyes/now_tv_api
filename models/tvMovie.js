@@ -6,7 +6,7 @@ var Schema = mongoose.Schema;
 
 var tvMovieSchema = new Schema({
     name: {type: String, unique: true, required: true, dropDups: true},
-    genre: {"genre": {type: String, required: true}},
+    genre: {type: String, required: true},
     year: {type: Number},
     country:{type:String},
     director: {type:String},

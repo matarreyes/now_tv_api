@@ -6,9 +6,9 @@ var Schema = mongoose.Schema;
 
 var tvProgramSchema = new Schema({
     name: {type: String, unique: true, required: true, dropDups: true},
-    genre: {"genre": {type: String, required: true}},
+    genre: {type: String, required: true},
     year: {type: Number},
     description: {type: String},
     image64: {type: String}
 });
-module.exports = mongoose.model('TvMovie', tvProgramSchema);
+module.exports = mongoose.model('TvProgram', tvProgramSchema);

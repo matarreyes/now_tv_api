@@ -11,6 +11,8 @@ var channels = require('./routes/channels'); //routes are defined here
 var tvSeries = require('./routes/tvSeries'); //routes are defined here
 var tvMovies = require('./routes/tvMovies'); //routes are defined here
 var tvPrograms = require('./routes/tvPrograms'); //routes are defined here
+var schedules = require('./routes/schedules'); //routes are defined here
+var parsedInfo = require('./routes/parsedInformation'); //routes are defined here
 var routes = require('./routes/index');
 
 var app = express();
@@ -37,13 +39,14 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
-app.use('/api', movies); //This is our route middleware
 app.use('/api', genres); //This is our route middleware
 app.use('/api', users_app); //This is our route middleware
 app.use('/api', channels); //This is our route middleware
 app.use('/api', tvSeries); //This is our route middleware
 app.use('/api', tvMovies); //This is our route middleware
 app.use('/api', tvPrograms); //This is our route middleware
+app.use('/api', schedules); //This is our route middleware
+app.use('/api', parsedInfo); //This is our route middleware
 
 
 // catch 404 and forward to error handler
