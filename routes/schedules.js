@@ -1,5 +1,6 @@
 var Schedule = require('../models/schedule');
 var express = require('express');
+var moment = require('moment');
 var router = express.Router();
 
 //TODO: Filter by today, channel and searched content
@@ -28,5 +29,28 @@ router.route('/schedules')
             res.send({message: 'Schedule Added'});
         });
     });
+
+/**
+ * Get by Today
+ */
+router.route('/schedules/today')
+    .get(function (req, res) {
+        Schedule.find({date: moment().format("YYYY-MM-DD")}, function (err, schedule) {
+            if (err) {
+                return res.send(err);
+            }
+            var filtred = schedule.sort(function(a, b){
+                console.log(moment(a.date + " " + a.hour).isBefore(b.date + " " + b.hour));
+                if (moment(a.date + " " + a.hour).isBefore(b.date + " " + b.hour))
+                    return -1;
+                else if (moment(a.date + " " + a.hour).isBefore(b.date + " " + b.hour))
+                    return 1;
+                else
+                    return 0;
+            });
+            res.json(filtred);
+        });
+    });
+
 
 module.exports = router;

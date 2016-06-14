@@ -86,7 +86,7 @@ router.route('/tvSeriesByName').get(function(req, res) {
  */
 router.route('/tvSeriesByGenre')
     .get(function (req, res) {
-        TvSerie.find({genre: {genre: req.query.genre}}, function (err, tvSerie) {
+        TvSerie.find({genre: req.query.genre}, function (err, tvSerie) {
             if (err) {
                 return res.send(err);
             }
