@@ -39,16 +39,16 @@ router.route('/schedules/today')
             if (err) {
                 return res.send(err);
             }
-            var filtred = schedule.sort(function(a, b){
+            
+            res.json(schedule.sort(function(a, b){
                 console.log(moment(a.date + " " + a.hour).isBefore(b.date + " " + b.hour));
                 if (moment(a.date + " " + a.hour).isBefore(b.date + " " + b.hour))
                     return -1;
-                else if (moment(a.date + " " + a.hour).isBefore(b.date + " " + b.hour))
+                else if (moment(b.date + " " + b.hour).isBefore(a.date + " " + a.hour))
                     return 1;
                 else
                     return 0;
-            });
-            res.json(filtred);
+            }));
         });
     });
 
