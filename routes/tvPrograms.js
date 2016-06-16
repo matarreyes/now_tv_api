@@ -96,6 +96,21 @@ router.route('/tvProgramsByGenre')
     });
 
 /**
+ * Get by query
+ */
+router.route('/tvProgramsSearch/search')
+    .get(function (req, res) {
+        var param = req.query.query.substr(1, req.query.query.length-2);
+        TvProgram.find({$or:[{'name': {"$regex": param, "$options": "i" }}, {'genre': {"$regex": param, "$options": "i" }}, {'description': {"$regex": param, "$options": "i" }}]}, function (err, tvProgram) {
+            if (err) {
+                return res.send(err);
+            }
+            res.json(tvProgram);
+        });
+    });
+
+
+/**
  * Delete one
  */
 router.route('/tvPrograms/:id').delete(function(req, res) {

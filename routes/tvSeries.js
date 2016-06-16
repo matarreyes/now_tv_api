@@ -96,6 +96,20 @@ router.route('/tvSeriesByGenre')
     });
 
 /**
+ * Get by query
+ */
+router.route('/tvSeriesSearch/search')
+    .get(function (req, res) {
+        var param = req.query.query.substr(1, req.query.query.length-2);
+        TvSerie.find({$or:[{'name': {"$regex": param, "$options": "i" }}, {'genre': {"$regex": param, "$options": "i" }}, {'country': {"$regex": param, "$options": "i" }}, {'director': {"$regex": param, "$options": "i" }}, {'description': {"$regex": param, "$options": "i" }} ]}, function (err, tvSerie) {
+            if (err) {
+                return res.send(err);
+            }
+            res.json(tvSerie);
+        });
+    });
+
+/**
  * Delete one
  */
 router.route('/tvSeries/:id').delete(function(req, res) {

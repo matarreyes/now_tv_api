@@ -53,6 +53,20 @@ router.route('/schedules/today')
     });
 
 /**
+ * Get by Today search
+ */
+router.route('/schedules/today/search')
+    .get(function (req, res) {
+        var param = req.query.query.substr(1, req.query.query.length-2);
+        Schedule.find({$or:[{'title': {"$regex": param, "$options": "i" }}, {'genre': {"$regex": param, "$options": "i" }}, {'channel': {"$regex": param, "$options": "i" }}, {'hour': {"$regex": param, "$options": "i" }}, {'belongsTo': {"$regex": param, "$options": "i" }}]}, function (err, schedule) {
+            if (err) {
+                return res.send(err);
+            }
+            res.json(schedule);
+        });
+    });
+
+/**
  * Get by Today remember the encoded chars +, #, etc
  */
 router.route('/schedules/todayByChannel')

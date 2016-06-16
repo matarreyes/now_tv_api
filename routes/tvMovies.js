@@ -95,6 +95,21 @@ router.route('/tvMoviesByGenre')
     });
 
 /**
+ * Get by query
+ */
+router.route('/tvMoviesSearch/search')
+    .get(function (req, res) {
+        var param = req.query.query.substr(1, req.query.query.length-2);
+        TvMovie.find({$or:[{'name': {"$regex": param, "$options": "i" }}, {'genre': {"$regex": param, "$options": "i" }}, {'country': {"$regex": param, "$options": "i" }}, {'director': {"$regex": param, "$options": "i" }}, {'description': {"$regex": param, "$options": "i" }} ]}, function (err, tvMovies) {
+            if (err) {
+                return res.send(err);
+            }
+            res.json(tvMovies);
+        });
+    });
+
+
+/**
  * Delete one
  */
 router.route('/tvMovies/:id').delete(function(req, res) {
