@@ -52,5 +52,26 @@ router.route('/schedules/today')
         });
     });
 
+/**
+ * Get by Today remember the encoded chars +, #, etc
+ */
+router.route('/schedules/todayByChannel')
+    .get(function (req, res) {
+        Schedule.find({date: moment().format("YYYY-MM-DD"), channel: req.query.channel.substr(1, req.query.channel.length-2)}, function (err, schedule) {
+            if (err) {
+                return res.send(err);
+            }
+
+            res.json(schedule.sort(function(a, b){
+                console.log(moment(a.date + " " + a.hour).isBefore(b.date + " " + b.hour));
+                if (moment(a.date + " " + a.hour).isBefore(b.date + " " + b.hour))
+                    return -1;
+                else if (moment(b.date + " " + b.hour).isBefore(a.date + " " + a.hour))
+                    return 1;
+                else
+                    return 0;
+            }));
+        });
+    });
 
 module.exports = router;
